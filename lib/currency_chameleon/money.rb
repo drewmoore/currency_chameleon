@@ -16,11 +16,10 @@ module CurrencyChameleon
       "#{format('%0.2f', amount)} #{currency}"
     end
 
-    def convert_to(new_currency)
-      exchange_rate = @@conversion_rates[currency][new_currency]
-      @amount      *= exchange_rate
-      @currency     = new_currency
-      inspect
+    def convert_to(target_currency)
+      @amount  *= @@conversion_rates[currency][target_currency]
+      @currency = target_currency
+      self
     end
 
     # Sets conversion rates for a given currency.

@@ -34,12 +34,13 @@ describe CurrencyChameleon::Money do
   end
 
   it 'converts its amount to a specified currency' do
-    expect(fifty_eur.convert_to('USD')).to eq('55.50 USD')
+    expect(fifty_eur.convert_to('USD').amount.round(2)).to eq(55.50)
   end
 
   it 'returns a new money instance in a specified currency based on amount' do
-    skip('')
-    # fifty_eur.convert_to('USD') # => 55.50 USD
+    expect(fifty_eur.convert_to('USD')).to(
+      be_instance_of(CurrencyChameleon::Money)
+    )
   end
 
   describe 'Arithmetic' do
