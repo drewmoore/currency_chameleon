@@ -17,18 +17,18 @@ module CurrencyChameleon
     end
 
     def convert_to(new_currency)
-      exchange_rate = @@conversion_rates[@currency][new_currency]
+      exchange_rate = @@conversion_rates[currency][new_currency]
       @amount      *= exchange_rate
       @currency     = new_currency
       inspect
     end
 
+    # Sets conversion rates for a given currency.
     def self.conversion_rates(currency, rates)
-      if @@conversion_rates[currency]
-        rates.each { |k, v| @@conversion_rates[currency][k] = v }
-      else
-        @@conversion_rates[currency] = rates
-      end
+      # If there is already a set of conversion rates for this currency,
+      # append or replace with the new rates. Otherwise, set the new rates.
+      @@conversion_rates[currency] ||= {}
+      rates.each { |target, rate| @@conversion_rates[currency][target] = rate }
     end
   end
 end
