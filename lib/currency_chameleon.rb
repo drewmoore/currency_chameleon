@@ -1,5 +1,2 @@
-require "currency_chameleon/version"
-
-module CurrencyChameleon
-  # Your code goes here...
-end
+require 'currency_chameleon/version'
+require 'currency_chameleon/money'
