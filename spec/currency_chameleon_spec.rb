@@ -7,7 +7,8 @@ describe CurrencyChameleon::Money do
     )
   end
 
-  let(:fifty_eur) { CurrencyChameleon::Money.new(50, 'EUR') }
+  let(:fifty_eur)      { CurrencyChameleon::Money.new(50, 'EUR') }
+  let(:twenty_dollars) { CurrencyChameleon::Money.new(20, 'USD') }
 
   it 'sets exchange rates' do
     skip('')
@@ -44,8 +45,6 @@ describe CurrencyChameleon::Money do
   end
 
   describe 'Arithmetic' do
-    let(:twenty_dollars) { CurrencyChameleon::Money.new(20, 'USD') }
-
     it 'adds dollars to euros, changes amount in same currency' do
       result = fifty_eur + twenty_dollars
       expect(result.inspect).to eq('68.02 EUR')
@@ -70,19 +69,17 @@ describe CurrencyChameleon::Money do
   describe 'Comparisons' do
     context '==' do
       it 'equals another instance of same amount and currency' do
-        skip('')
-        # twenty_dollars == Money.new(20, 'USD') # => true
+        expect(twenty_dollars).to eq(CurrencyChameleon::Money.new(20, 'USD'))
       end
 
       it 'does not equal instance of a differing amount, same currency ' do
-        skip('')
-        # twenty_dollars == Money.new(30, 'USD') # => false
+        expect(twenty_dollars).not_to(
+          eq(CurrencyChameleon::Money.new(30, 'USD'))
+        )
       end
 
       it 'equals another instance of same amount after conversion' do
-        skip('')
-        # fifty_eur_in_usd = fifty_eur.convert_to('USD')
-        # fifty_eur_in_usd == fifty_eur          # => true
+        expect(fifty_eur.convert_to('USD')).to eq(fifty_eur)
       end
     end
 
