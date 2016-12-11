@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe CurrencyChameleon::Money do
   before(:each) do
-    @bitcoin_rate = 0.0047
+    @bitcoin_rate = 0.00137
     CurrencyChameleon::Money.conversion_rates(
-      'EUR', 'USD' => 1.11, 'Bitcoin' => @bitcoin_rate
+      'EUR', 'USD' => 1.05507, 'Bitcoin' => @bitcoin_rate
     )
   end
 
@@ -34,7 +34,7 @@ describe CurrencyChameleon::Money do
   end
 
   it 'converts its amount to a specified currency' do
-    expect(fifty_eur.convert_to('USD').amount.round(2)).to eq(55.50)
+    expect(fifty_eur.convert_to('USD').amount.round(2)).to eq(52.75)
   end
 
   it 'returns a new money instance in a specified currency based on amount' do
@@ -46,12 +46,12 @@ describe CurrencyChameleon::Money do
   describe 'Arithmetic' do
     it 'adds dollars to euros, changes amount in same currency' do
       result = fifty_eur + twenty_dollars
-      expect(result.inspect).to eq('68.02 EUR')
+      expect(result.inspect).to eq('68.96 EUR')
     end
 
     it 'subtracts dollars from euros, changes amount in same currency' do
       result = fifty_eur - twenty_dollars
-      expect(result.inspect).to eq('31.98 EUR')
+      expect(result.inspect).to eq('31.04 EUR')
     end
 
     it 'divides by an integer, changes amount in same currency' do
