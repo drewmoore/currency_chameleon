@@ -1,5 +1,7 @@
 # CurrencyChameleon
 
+This is a simple currency tool for converting, calculating, and comparing monetary values between currencies.
+
 
 ## Installation
 
@@ -13,24 +15,51 @@ And then execute:
 
     $ bundle
 
-Or install it yourself as:
-
-    $ gem install currency_chameleon
-
 ## Usage
 
-TODO: Write usage instructions here
+First, you will need to setup a table of conversion rates between currencies. For example:
+```ruby
+CurrencyChameleon::Money.conversion_rates(
+  'EUR', 'USD' => 1.05507, 'Bitcoin' => 0.00137
+)
+```
 
-## Development
+Then, you can instantiate a new CurrencyChameleon::Money object in a currency:
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+`euros = CurrencyChameleon::Money.new(23, 'EUR')`
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+To simply return the amount:
 
-## Contributing
+`euros.amount # => 23`
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/currency_chameleon.
+or return the currency:
 
+`euros.currency # => "EUR"`
+
+You can also convert the amount to a secondary currency, which returns a new money instance:
+```ruby
+dollars = euros.convert_to('USD') # => 24.27 USD
+dollars.currency # => "USD"
+```
+
+Money objects can perform mathematical operations between currencies, returning an instance in base currency:
+```ruby
+dollars = CurrencyChameleon::Money.new(47, 'USD')
+euros   = CurrencyChameleon::Money.new(12, 'EUR')
+total   = dollars + euros # => 59.66 USD
+
+total.class # => CurrencyChameleon::Money
+```
+
+Money objects can also be compared against each other with any operator:
+```ruby
+euros    = CurrencyChameleon::Money.new(2, 'EUR')
+bitcoins = CurrencyChameleon::Money.new(2, 'Bitcoin')
+
+euros == bitcoins # => false
+euros > bitcoins  # => false
+euros < bitcoins  # => true
+```
 
 ## License
 
