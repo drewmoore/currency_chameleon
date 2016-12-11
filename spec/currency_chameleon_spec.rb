@@ -44,34 +44,26 @@ describe CurrencyChameleon::Money do
   end
 
   describe 'Arithmetic' do
-    # twenty_dollars = Money.new(20, 'USD')
+    let(:twenty_dollars) { CurrencyChameleon::Money.new(20, 'USD') }
 
-    context 'addition' do
-      it 'adds dollars to euros, changes amount in same currency' do
-        skip('')
-        # fifty_eur + twenty_dollars # => 68.02 EUR
-      end
+    it 'adds dollars to euros, changes amount in same currency' do
+      result = fifty_eur + twenty_dollars
+      expect(result.inspect).to eq('68.02 EUR')
     end
 
-    context 'subtraction' do
-      it 'subtracts dollars from euros, changes amount in same currency' do
-        skip('')
-        # fifty_eur - twenty_dollars # => 31.98 EUR
-      end
+    it 'subtracts dollars from euros, changes amount in same currency' do
+      result = fifty_eur - twenty_dollars
+      expect(result.inspect).to eq('31.98 EUR')
     end
 
-    context 'division' do
-      it 'divides by an integer, changes amount in same currency' do
-        skip('')
-        # fifty_eur / 2              # => 25 EUR
-      end
+    it 'divides by an integer, changes amount in same currency' do
+      result = fifty_eur / 2
+      expect(result.inspect).to eq('25.00 EUR')
     end
 
-    context 'multiplication' do
-      it 'multiplies by an integer, changes amount in same currency' do
-        skip('')
-        # twenty_dollars * 3         # => 60 USD
-      end
+    it 'multiplies by an integer, changes amount in same currency' do
+      result = twenty_dollars * 3
+      expect(result.inspect).to eq('60.00 USD')
     end
   end
 
