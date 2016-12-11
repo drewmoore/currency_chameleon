@@ -1,7 +1,5 @@
 [![Build Status](https://travis-ci.org/drewmoore/currency_chameleon.svg?branch=master)](https://travis-ci.org/drewmoore/currency_chameleon)
 
-[![Coverage Status](https://coveralls.io/repos/github/drewmoore/currency_chameleon/badge.svg?branch=master)](https://coveralls.io/github/drewmoore/currency_chameleon?branch=master)
-
 # Currency Chameleon
 
 This is a simple currency tool for converting, calculating, and comparing monetary values between currencies.
