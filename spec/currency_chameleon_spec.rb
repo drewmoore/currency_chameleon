@@ -2,8 +2,9 @@ require 'spec_helper'
 
 describe CurrencyChameleon::Money do
   before(:each) do
+    @bitcoin_rate = 0.0047
     CurrencyChameleon::Money.conversion_rates(
-      'EUR', 'USD' => 1.11, 'Bitcoin' => 0.0047
+      'EUR', 'USD' => 1.11, 'Bitcoin' => @bitcoin_rate
     )
   end
 
@@ -11,11 +12,9 @@ describe CurrencyChameleon::Money do
   let(:twenty_dollars) { CurrencyChameleon::Money.new(20, 'USD') }
 
   it 'sets exchange rates' do
-    skip('')
-    # Money.conversion_rates('EUR', {
-    #   'USD'     => 1.11,
-    #   'Bitcoin' => 0.0047
-    # })
+    euro    = CurrencyChameleon::Money.new(5, 'EUR')
+    bitcoin = CurrencyChameleon::Money.new(5, 'Bitcoin')
+    expect((euro / bitcoin).amount).to eq(@bitcoin_rate)
   end
 
   it 'intantiates money objects in a given currency' do
