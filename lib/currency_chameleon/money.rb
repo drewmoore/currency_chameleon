@@ -17,9 +17,9 @@ module CurrencyChameleon
     end
 
     def convert_to(target_currency)
-      @amount  *= @@conversion_rates[currency][target_currency]
-      @currency = target_currency
-      self
+      self.class.new(
+        amount * @@conversion_rates[currency][target_currency], target_currency
+      )
     end
 
     # Sets conversion rates for a given currency.
