@@ -1,4 +1,4 @@
-# CurrencyChameleon
+# Currency Chameleon
 
 This is a simple currency tool for converting, calculating, and comparing monetary values between currencies.
 
