@@ -40,21 +40,32 @@ module CurrencyChameleon
       @currency = currency
     end
 
-    def ==(other)
-      if currency == other.currency
-        amount == other.amount
-      else
-        amount == other.convert_to(currency).amount
+    # Define common methods for mathematic operators in shorthand.
+    [:+, :-, :*, :/].each do |operator|
+      # Piece together an equation for any mathematical operator. Determine the
+      # other amount to pass to calculation based on its class.
+      define_method(operator) do |other|
+        operand = if other.instance_of?(self.class)
+                    self.class.convert_amount(
+                      other.amount, other.currency, currency
+                    )
+                  else
+                    other
+                  end
+        self.class.new(amount.send(operator, operand), currency)
       end
     end
 
-    # Define common methods for mathematic operators in shorthand. These
-    # all call a common private method to avoid repeted code. Shorthand for:
-    # def +(other)
-    #   arithmetic(:+, other)
-    # end
-    [:+, :-, :*, :/].each do |operator|
-      define_method(operator) { |other| arithmetic(operator, other) }
+    # Define common methods for comparisons in shorthand.
+    [:==, :>, :<, :>=, :<=].each do |comparator|
+      define_method(comparator) do |other|
+        # Piece together a comparison by converting the other amount to the
+        # correct currency, if needed.
+        comparand = self.class.convert_amount(
+          other.amount, other.currency, currency
+        )
+        amount.send(comparator, comparand)
+      end
     end
 
     # Override default object inspect.
@@ -68,21 +79,6 @@ module CurrencyChameleon
       self.class.new(
         self.class.convert_amount(amount, currency, secondary), secondary
       )
-    end
-
-    private
-
-    # Piece together an equation for any mathematical operator. Determine the
-    # other amount to pass to calculation based on its class.
-    def arithmetic(operator, other)
-      operand = if other.instance_of?(self.class)
-                  self.class.convert_amount(
-                    other.amount, other.currency, currency
-                  )
-                else
-                  other
-                end
-      self.class.new(amount.send(operator, operand), currency)
     end
   end
 end

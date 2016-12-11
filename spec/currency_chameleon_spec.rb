@@ -85,13 +85,11 @@ describe CurrencyChameleon::Money do
 
     context 'less than, greater than' do
       it 'accurately compares amounts of instances in same currency' do
-        skip('')
-        # twenty_dollars > Money.new(5, 'USD')   # => true
+        expect(twenty_dollars).to be > CurrencyChameleon::Money.new(5, 'USD')
       end
 
       it 'accurately compares amounts of instances in differing currencies' do
-        skip('')
-        # twenty_dollars < fifty_eur             # => true
+        expect(twenty_dollars).to be < fifty_eur
       end
     end
   end
