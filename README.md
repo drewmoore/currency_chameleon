@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/drewmoore/currency_chameleon.svg?branch=master)](https://travis-ci.org/drewmoore/currency_chameleon)
+
 # Currency Chameleon
 
 This is a simple currency tool for converting, calculating, and comparing monetary values between currencies.
